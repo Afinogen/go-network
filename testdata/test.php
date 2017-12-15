@@ -39,6 +39,17 @@ class TestCaptcha
         }
         $returnData['numbres'][] = $tmp;
 
+        $tmp = $this->find15($dataAll, $tmp[1] - 2, $tmp[2]);
+        if (!$this->isGoodMatrix($tmp[0])) {
+            $tmp = $this->find15($dataOne, $tmp[1] - 2, $tmp[2]);
+        }
+        if (!$this->isGoodMatrix($tmp[0])) {
+            $tmp = $this->find15($dataTwo, $tmp[1] - 2, $tmp[2]);
+        }
+        if ($this->isGoodMatrix($tmp[0])) {
+            $returnData['numbres'][] = $tmp;
+        }
+
 //        $this->printMatrix($returnData['numbres'][0][0]);
 //        $this->printMatrix($returnData['numbres'][1][0]);
 
@@ -282,9 +293,9 @@ $files = glob(__DIR__.'/output/*.jpg');
 
 $a = new TestCaptcha();
 //$a->decryptCaptcha('output/13.jpg');
-file_put_contents(__DIR__.'/all.txt', '');
+file_put_contents(__DIR__.'/all_sum.txt', '');
 foreach ($files as $key => $file) {
-    if ($file[strlen($file) - 5] != "0") {
+    if ($file[strlen($file) - 5] == "0") {
         $arr = $a->decryptCaptcha($file);
 
         $data = '';
@@ -305,6 +316,18 @@ foreach ($files as $key => $file) {
         $num = readline();
         $data .= PHP_EOL.$num.PHP_EOL;
 
-        file_put_contents(__DIR__.'/all.txt', $data, FILE_APPEND);
+        if (isset($arr['numbres'][2])) {
+            foreach ($arr['numbres'][2][0] as $i) {
+                echo implode($i).PHP_EOL;
+                $data .= implode($i);
+            }
+
+            $num = readline();
+            $data .= PHP_EOL.$num.PHP_EOL;
+        }
+
+        echo '------------------------'.PHP_EOL;
+
+        file_put_contents(__DIR__.'/all_sum.txt', $data, FILE_APPEND);
     }
 }
