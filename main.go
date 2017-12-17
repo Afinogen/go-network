@@ -12,7 +12,7 @@ func CreateNN() {
 	// Создаём НС с 3 входными нейронами (столько же входных параметров),
 	// 16 скрытыми нейронами и
 	// 4 выходными нейронами (столько же вариантов ответа)
-	nn := gonn.NewNetwork(540, 2, 1, false, 0.65, 0.1)
+	nn := gonn.NewNetwork(540, 2, 1, false, 0.25, 0.1)
 
 	file, err := os.Open("train.txt")
 	if err != nil {
@@ -72,7 +72,7 @@ func main() {
 	nn := gonn.LoadNN("gonn")
 	//
 
-	file, err := os.Open("all_sum.txt")
+	file, err := os.Open("all.txt")
 	//file, err := os.Open("all.txt")
 	if err != nil {
 		// handle the error here

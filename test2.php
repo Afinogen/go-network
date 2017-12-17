@@ -313,7 +313,7 @@ class TestCaptcha
     }
 }
 
-$files = glob(__DIR__.'/output/*.jpg');
+$files = glob(__DIR__.'/testdata_1/*.jpg');
 
 $a = new TestCaptcha();
 //$a->decryptCaptcha('output/13.jpg');
@@ -329,26 +329,18 @@ foreach ($files as $key => $file) {
         }
 
         $num = readline();
-        $data .= PHP_EOL.($num/100 + 0.1).PHP_EOL;
+        $data .= PHP_EOL.($num / 100 + 0.1).PHP_EOL;
         echo PHP_EOL;
-//
-//        foreach ($arr['numbres'][1][0] as $i) {
-//            echo implode($i).PHP_EOL;
-//            $data .= implode($i);
-//        }
-//
-//        $num = 0.3;//readline();
-//        $data .= PHP_EOL.$num.PHP_EOL;
 
-        if (isset($arr['numbres'][2])) {
-            foreach ($arr['numbres'][2][0] as $i) {
-                echo implode($i).PHP_EOL;
-                $data .= implode($i);
-            }
 
-            $num = readline();
-            $data .= PHP_EOL.($num/100 + 0.1).PHP_EOL;
+        foreach ($arr['numbres'][1][0] as $i) {
+            echo implode($i).PHP_EOL;
+            $data .= implode($i);
         }
+
+        $num = readline();
+        $data .= PHP_EOL.($num / 100 + 0.1).PHP_EOL;
+
 
         echo '------------------------'.PHP_EOL;
 
