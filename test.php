@@ -52,6 +52,9 @@ class TestCaptcha
             $tmp[0] = $this->_correctArray($tmp[0]);
             $returnData['numbres'][] = $tmp;
         }
+        foreach ($returnData['numbres'] as $item) {
+            $this->printMatrix($item[0]);
+        }
 
         return $returnData;
     }
@@ -313,45 +316,45 @@ class TestCaptcha
     }
 }
 
-$files = glob(__DIR__.'/output/*.jpg');
-
-$a = new TestCaptcha();
-//$a->decryptCaptcha('output/13.jpg');
-file_put_contents(__DIR__.'/all_sum.txt', '');
-foreach ($files as $key => $file) {
-    if ($file[strlen($file) - 5] == "0") {
-        $arr = $a->decryptCaptcha($file);
-
-        $data = '';
-        foreach ($arr['numbres'][0][0] as $i) {
-            echo implode($i).PHP_EOL;
-            $data .= implode($i);
-        }
-
-        $num = readline();
-        $data .= PHP_EOL.($num/100 + 0.1).PHP_EOL;
-        echo PHP_EOL;
-
-        foreach ($arr['numbres'][1][0] as $i) {
-            echo implode($i).PHP_EOL;
-            $data .= implode($i);
-        }
-
-        $num = 0.3;//readline();
-        $data .= PHP_EOL.$num.PHP_EOL;
-
-        if (isset($arr['numbres'][2])) {
-            foreach ($arr['numbres'][2][0] as $i) {
-                echo implode($i).PHP_EOL;
-                $data .= implode($i);
-            }
-
-            $num = readline();
-            $data .= PHP_EOL.($num/100 + 0.1).PHP_EOL;
-        }
-
-        echo '------------------------'.PHP_EOL;
-
-        file_put_contents(__DIR__.'/all_sum.txt', $data, FILE_APPEND);
-    }
-}
+//$files = glob(__DIR__.'/gen_image/output_*.jpg');
+//
+//$a = new TestCaptcha();
+////$a->decryptCaptcha('output/13.jpg');
+//file_put_contents(__DIR__.'/all_sum.txt', '');
+//foreach ($files as $key => $file) {
+//    if ($file[strlen($file) - 5] == "0") {
+//        $arr = $a->decryptCaptcha($file);
+//
+//        $data = '';
+//        foreach ($arr['numbres'][0][0] as $i) {
+//            echo implode($i).PHP_EOL;
+//            $data .= implode($i);
+//        }
+//
+//        $num = readline();
+//        $data .= PHP_EOL.$num.PHP_EOL;
+//        echo PHP_EOL;
+//
+//        foreach ($arr['numbres'][1][0] as $i) {
+//            echo implode($i).PHP_EOL;
+//            $data .= implode($i);
+//        }
+//
+//        $num = readline();
+//        $data .= PHP_EOL.$num.PHP_EOL;
+//
+//        if (isset($arr['numbres'][2])) {
+//            foreach ($arr['numbres'][2][0] as $i) {
+//                echo implode($i).PHP_EOL;
+//                $data .= implode($i);
+//            }
+//
+//            $num = readline();
+//            $data .= PHP_EOL.$num.PHP_EOL;
+//        }
+//
+//        echo '------------------------'.PHP_EOL;
+//
+//        file_put_contents(__DIR__.'/all_sum.txt', $data, FILE_APPEND);
+//    }
+//}
