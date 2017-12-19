@@ -6,13 +6,15 @@ import (
 	"os"
 	"strings"
 	"strconv"
+	//"math/rand"
 )
 
 func CreateNN() {
 	// Создаём НС с 3 входными нейронами (столько же входных параметров),
 	// 16 скрытыми нейронами и
 	// 4 выходными нейронами (столько же вариантов ответа)
-	nn := gonn.NewNetwork(540, 2, 1, false, 0.25, 0.1)
+	//rand.Seed(0)
+	nn := gonn.DefaultNetwork(540, 82, 1, false)
 
 	file, err := os.Open("train.txt")
 	if err != nil {
@@ -60,7 +62,7 @@ func CreateNN() {
 
 	// Начинаем обучать нашу НС.
 	// Количество итераций - 100000
-	nn.Train(input, target, 100)
+	nn.Train(input, target, 1000)
 
 	// Сохраняем готовую НС в файл.
 	gonn.DumpNN("gonn", nn)
@@ -72,7 +74,7 @@ func main() {
 	nn := gonn.LoadNN("gonn")
 	//
 
-	file, err := os.Open("all.txt")
+	file, err := os.Open("train.txt")
 	//file, err := os.Open("all.txt")
 	if err != nil {
 		// handle the error here

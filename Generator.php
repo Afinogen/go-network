@@ -66,10 +66,10 @@ class Generator
     }
 }
 
-require_once __DIR__.'/test.php';
+require_once __DIR__.'/ParsingCaptcha.php';
 
 $gen = new Generator();
-$matrix = new \TestCaptcha();
+$matrix = new ParsingCaptcha();
 
 file_put_contents(__DIR__.'/train.txt', '');
 for ($i = 0; $i < 1000; $i++) {

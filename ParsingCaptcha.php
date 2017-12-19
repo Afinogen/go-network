@@ -1,6 +1,8 @@
 <?php
 
-class TestCaptcha
+namespace afinogen89\net;
+
+class ParsingCaptcha
 {
     /**
      * Дешифровка каптчи
@@ -52,11 +54,51 @@ class TestCaptcha
             $tmp[0] = $this->_correctArray($tmp[0]);
             $returnData['numbres'][] = $tmp;
         }
-        foreach ($returnData['numbres'] as $item) {
-            $this->printMatrix($item[0]);
-        }
+//        foreach ($returnData['numbres'] as $item) {
+//            $this->printMatrix($item[0]);
+//        }
 
         return $returnData;
+    }
+
+    public function fixNumber(array $_numFirst, array $_numSecond)
+    {
+        $this->printMatrix($_numFirst);
+        echo PHP_EOL.PHP_EOL;
+        $this->printMatrix($_numSecond);
+        echo PHP_EOL.PHP_EOL;
+        $height = count($_numFirst);
+        $width = count($_numFirst[0]);
+        $slice = [];
+        for ($i = 0; $i < $height; $i++) {
+            for ($j = $width - 5; $j < $width; $j++) {
+                echo $slice[$i][$j - $width + 5] = $_numFirst[$i][$j];
+            }
+            echo PHP_EOL;
+        }
+
+        $isNoClear = false;
+        for ($i = 0; $i < $height; $i++) {
+            for ($j = 0; $j < 5; $j++) {
+                if ($slice[$i][$j] == 1 && $_numSecond[$i][$j] != $slice[$i][$j]) {
+                    $isNoClear = true;
+                    break 2;
+                }
+            }
+        }
+
+        if (!$isNoClear) {
+            for ($i = 0; $i < $height; $i++) {
+                for ($j = 0; $j < 5; $j++) {
+                    if ($slice[$i][$j] == 1) {
+                        $_numSecond[$i][$j] = 0;
+                    }
+                }
+            }
+        }
+        echo PHP_EOL.PHP_EOL;
+        $this->printMatrix($_numSecond);
+        echo PHP_EOL.PHP_EOL;
     }
 
     protected function _correctArray(array $data)
@@ -315,46 +357,3 @@ class TestCaptcha
         return $data;
     }
 }
-
-//$files = glob(__DIR__.'/gen_image/output_*.jpg');
-//
-//$a = new TestCaptcha();
-////$a->decryptCaptcha('output/13.jpg');
-//file_put_contents(__DIR__.'/all_sum.txt', '');
-//foreach ($files as $key => $file) {
-//    if ($file[strlen($file) - 5] == "0") {
-//        $arr = $a->decryptCaptcha($file);
-//
-//        $data = '';
-//        foreach ($arr['numbres'][0][0] as $i) {
-//            echo implode($i).PHP_EOL;
-//            $data .= implode($i);
-//        }
-//
-//        $num = readline();
-//        $data .= PHP_EOL.$num.PHP_EOL;
-//        echo PHP_EOL;
-//
-//        foreach ($arr['numbres'][1][0] as $i) {
-//            echo implode($i).PHP_EOL;
-//            $data .= implode($i);
-//        }
-//
-//        $num = readline();
-//        $data .= PHP_EOL.$num.PHP_EOL;
-//
-//        if (isset($arr['numbres'][2])) {
-//            foreach ($arr['numbres'][2][0] as $i) {
-//                echo implode($i).PHP_EOL;
-//                $data .= implode($i);
-//            }
-//
-//            $num = readline();
-//            $data .= PHP_EOL.$num.PHP_EOL;
-//        }
-//
-//        echo '------------------------'.PHP_EOL;
-//
-//        file_put_contents(__DIR__.'/all_sum.txt', $data, FILE_APPEND);
-//    }
-//}
